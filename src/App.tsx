@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import getPrices from './services/api';
 
 function App() {
+
+  const [prices, setPrices] = useState<Prices>({} as Prices);
+
+  useEffect(() => {
+    // Fetch the prices and update them every minute
+    getPrices().then((data) => {
+      console.log(data);
+      setPrices(data);
+    });
+
+    const interval = setInterval(() => {
+      getPrices().then((data) => {
+        setPrices(data);
+      }); 
+    }, 60000);
+
+    // Unmounts interval safely
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        `EUR: ${prices.EUR} GBP: ${prices.GBP} USD: ${prices.USD}`
+      }
     </div>
   );
 }
