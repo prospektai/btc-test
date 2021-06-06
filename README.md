@@ -1,9 +1,11 @@
 ## Currency converter app example
 
-### TODO
+### DONE
+- [x] Add form fields
+- [x] Calculate and update fields
 
-    - [ ] Add form fields
-    - [ ] Calculate and update fields
-    - [ ] Delete/add form fields
-    - [ ] Tests
-    - [ ] Code cleanup
+### TODO
+- [ ] Fix prices clearing on API update
+- [ ] Delete/add form fields
+- [ ] Tests
+- [ ] Code cleanup

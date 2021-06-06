@@ -1,3 +1,3 @@
 type Prices = {
-    USD, EUR, GBP: number
+    USD, EUR, GBP, input: number;
 };
