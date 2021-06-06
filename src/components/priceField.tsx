@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PriceContext } from "../context";
+import PriceContext from "../context";
 import calculatePrice from "../helpers/calculatePrice";
 
 const PriceField = (args: any) => {

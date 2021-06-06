@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import PriceField from "../components/priceField";
-import { initialCurrencies, PriceContext } from "../context";
+import PriceContext from "../context";
 import getPrices from "../services/api";
 
 const PriceForm = () => {
@@ -8,7 +8,7 @@ const PriceForm = () => {
     const [input, setInput] = useState<number>(0);
     const [prices, setPrices] = useState<Prices>({} as Prices);
 
-    const [currencies, setCurrencies] = useState(initialCurrencies);
+    const [currencies, setCurrencies] = useState(["USD", "GBP", "EUR"]);
     const [hiddenCurrencies, setHiddenCurrencies] = useState<string[]>([]);
 
     const stateRef = useRef(input);

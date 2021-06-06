@@ -5,8 +5,9 @@
 - [x] Calculate and update fields
 - [x] Fix prices clearing on API update
 - [x] Delete/add form fields
+- [x] Number formatting
 
 ### TODO
-- [ ] Number formatting
 - [ ] Tests
+- [ ] UI cleanup
 - [ ] Code cleanup

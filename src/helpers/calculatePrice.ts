@@ -1,5 +1,5 @@
-const prec = (num: number) => { // precISION
-    return num.toFixed(2);
+const formatNum = (num: number) => {
+    return num.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 const calculatePrice = (prices: Prices, currency: string): string => {
@@ -10,13 +10,13 @@ const calculatePrice = (prices: Prices, currency: string): string => {
 
     switch(currency){
         case "GBP":
-            price = `£ ${prec( prices.GBP * prices.input )}`;
+            price = `£ ${formatNum( prices.GBP * prices.input )}`;
             break;
         case "USD":
-            price = `$ ${prec( prices.USD * prices.input )}`;
+            price = `$ ${formatNum( prices.USD * prices.input )}`;
             break;
         case "EUR":
-            price = `€ ${prec( prices.EUR * prices.input )}`;
+            price = `€ ${formatNum( prices.EUR * prices.input )}`;
             break;
     }
 
