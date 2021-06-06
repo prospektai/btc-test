@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PriceField from "../components/priceField";
 import PriceContext from "../context";
 import getPrices from "../services/api";
@@ -6,20 +6,33 @@ import getPrices from "../services/api";
 const PriceForm = () => {
 
     const [input, setInput] = useState<number>(0);
-
     const [prices, setPrices] = useState<Prices>({} as Prices);
+
+    const stateRef = useRef(input);
+    stateRef.current = input;
+
+    useEffect(() => {
+        try {
+            getPrices().then((data) => { setPrices(data); });
+        } catch (e) { console.log(e); }
+    }, []);
+
 
     useEffect(() => {
         // Fetch the prices and update them every minute
-        getPrices().then((data) => {
-            setPrices(data);
-        });
+        let interval = setInterval(() => {
+            try {
+                getPrices().then((data) => {
 
-        const interval = setInterval(() => {
-            getPrices(input).then((data) => {
-                setPrices(data);
-            });
-        }, 6000);
+                    let newPrices: Prices = {...data};
+                    newPrices.input = stateRef.current;
+
+                    setPrices(newPrices);
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }, 60000);
 
         // Unmounts interval safely
         return () => clearInterval(interval);
@@ -29,7 +42,7 @@ const PriceForm = () => {
         setInput(e?.target?.value);
 
         let newPrices: Prices = prices;
-        newPrices.input = e?.target?.value;
+        newPrices.input = parseFloat(e?.target?.value);
 
         setPrices(newPrices);
     }

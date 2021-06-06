@@ -3,9 +3,9 @@
 ### DONE
 - [x] Add form fields
 - [x] Calculate and update fields
+- [x] Fix prices clearing on API update
 
 ### TODO
-- [ ] Fix prices clearing on API update
 - [ ] Delete/add form fields
 - [ ] Tests
 - [ ] Code cleanup
