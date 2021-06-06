@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import PriceField from "../components/priceField";
-import PriceContext from "../context";
+import { initialCurrencies, PriceContext } from "../context";
 import getPrices from "../services/api";
 
 const PriceForm = () => {
 
     const [input, setInput] = useState<number>(0);
     const [prices, setPrices] = useState<Prices>({} as Prices);
+
+    const [currencies, setCurrencies] = useState(initialCurrencies);
+    const [hiddenCurrencies, setHiddenCurrencies] = useState<string[]>([]);
 
     const stateRef = useRef(input);
     stateRef.current = input;
@@ -47,14 +50,55 @@ const PriceForm = () => {
         setPrices(newPrices);
     }
 
+    const deleteCurrency = (currency: string) => {
+
+        let newCurrencies: string[] = currencies;
+        let currencyIndex: number = newCurrencies.findIndex((e) => e === currency);
+
+        if(currencyIndex !== -1){
+            let elements: string[] = newCurrencies.splice(currencyIndex, 1);
+
+            setCurrencies([...newCurrencies]);
+            setHiddenCurrencies([...elements]);
+        }
+    }
+
+    const addCurrency = (currency: string) => {
+
+        let newHiddenCurrencies: string[] = hiddenCurrencies;
+        let currencyIndex: number = newHiddenCurrencies.findIndex((e) => e === currency);
+
+        if(currencyIndex !== -1){
+            let elements: string[] = newHiddenCurrencies.splice(currencyIndex, 1);
+
+            setCurrencies([...currencies, ...elements]);
+            setHiddenCurrencies([...newHiddenCurrencies]);
+        }
+    }
+
     return (
         <PriceContext.Provider value={prices}>
             <label><b>BTC</b> : </label>
             <input id="btc-input" type="number" value={input} onChange={handleChange} />
             <div className="outputs">
-                <PriceField currency="USD" />
-                <PriceField currency="EUR" />
-                <PriceField currency="GBP" />
+                {
+                    currencies.map((e: any) => {
+                        return <PriceField key={e} currency={e} deleteCallback={deleteCurrency} />
+                    })
+                }
+                {
+                    hiddenCurrencies.length > 0 ?
+                    <select name="Currencies" onChange={(e) => addCurrency(e?.target?.value as string)}>
+                        <option></option>
+                        {
+                            hiddenCurrencies.map((e) => {
+                                return <option key={`opt-${e}$`}>{e}</option>
+                            })
+                        }
+                    </select>
+                    :
+                    <div></div>
+                }
             </div>
         </PriceContext.Provider>
     );
