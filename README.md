@@ -6,8 +6,8 @@
 - [x] Fix prices clearing on API update
 - [x] Delete/add form fields
 - [x] Number formatting
+- [x] Tests
 
 ### TODO
-- [ ] Tests
 - [ ] UI cleanup
 - [ ] Code cleanup

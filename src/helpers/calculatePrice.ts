@@ -23,4 +23,6 @@ const calculatePrice = (prices: Prices, currency: string): string => {
     return price;
 }
 
+export { formatNum };
+
 export default calculatePrice;
