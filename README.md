@@ -1,5 +1,7 @@
 ## Currency converter app example
 
+[![Tests](https://github.com/prospektai/btc-test/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/prospektai/btc-test/actions/workflows/main.yml)
+
 ### DONE
 - [x] Add form fields
 - [x] Calculate and update fields
