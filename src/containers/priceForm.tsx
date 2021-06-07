@@ -59,7 +59,7 @@ const PriceForm = () => {
             let elements: string[] = newCurrencies.splice(currencyIndex, 1);
 
             setCurrencies([...newCurrencies]);
-            setHiddenCurrencies([...elements]);
+            setHiddenCurrencies([...hiddenCurrencies, ...elements]);
         }
     }
 
